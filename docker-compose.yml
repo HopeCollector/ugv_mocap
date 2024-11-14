@@ -1,0 +1,115 @@
+# Docker Compose file for ugv controll
+#
+# Usage:
+#
+# To build the images:
+#   docker compose build
+#
+# To start up a specific service by name:
+#   docker compose up <service_name>
+#
+# To open an interactive shell to a running container:
+#   docker exec -it <container_name> bash
+
+services:
+  base:
+    image: ugv_ctrl:base
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      args:
+        ROS_DISTRO: noetic
+      target: base
+    # Interactive shell
+    stdin_open: true
+    tty: true
+    # Networking and IPC for ROS
+    network_mode: host
+    ipc: host
+    # Set proxy for container
+    environment:
+      - ALL_PROXY
+      - HTTP_PROXY
+      - HTTPS_PROXY
+      - NO_PROXY
+      - all_proxy
+      - http_proxy
+      - https_proxy
+      - no_proxy
+
+
+  overlay:
+    extends: base
+    image: ugv_ctrl:overlay
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: overlay
+    environment:
+      # ROS_IP=${ROS_IP:-127.0.0.1} 会为 ROS_IP 设置默认值 127.0.0.1
+      # 使用 docker compose up 时，可以通过设置 ROS_IP 环境变量来覆盖默认值
+      # 后续继承了 overlay 服务，也会继承 ROS_IP 环境变量的行为
+      # 例如 docker compose up run 时，ROS_IP 的值为 127.0.0.1
+      # ROS_IP=1.1.1.1 docker compose up run 时，ROS_IP 的值为 1.1.1.1
+      - ROS_IP=${ROS_IP:-127.0.0.1}
+      - ROS_MASTER_URI=http://${ROS_IP:-127.0.0.1}:11311
+
+
+  # launch the main node
+  run:
+    extends: overlay
+    volumes:
+      - ./data:/data:cached
+    command: >
+      bash -c "
+      source /conda/bin/activate ros
+      && source /opt/ros/noetic/setup.bash
+      && (python3 /work/node.py &)
+      && sleep 1
+      && (python3 /work/pub_target.py &)
+      && rosbag record -a -O /data/$(date +%Y%m%d_%H%M%S).bag"
+
+  # Stop the car
+  stop:
+    extends: overlay
+    # 多行命令可以使用 > 或 | 符号进行标记
+    # > 会删除多余的空格，| 会保留多余的空格
+    # 在这个例子中，使用 > 符号，可以删除多余的空格，保持 yml 语法的正确性
+    command: >
+      bash -c "
+      source /opt/ros/noetic/setup.bash
+      && rostopic pub /cmd_vel geometry_msgs/Twist 'linear:
+        x: 0.0
+        y: 0.0
+        z: 0.0
+      angular:
+        x: 0.0
+        y: 0.0
+        z: 0.0'"
+
+  # launch tf2 static transform & foxglove bridge
+  backend:
+    extends: overlay
+    # 如果要使用 $ 符号，需要使用 $$ 转义
+    # 需要放在后台运行的例子可以使用 () 符号，它表示在子 shell 中运行命令
+    command: bash -c "
+      source /opt/ros/noetic/setup.bash
+      && echo listening on $$ROS_MASTER_URI
+      && (roslaunch foxglove_bridge foxglove_bridge.launch > /dev/null &)
+      && sleep 2
+      && (rosrun tf2_ros static_transform_publisher 0 0 0 0 0 0 1 mocap odom &)
+      && rosrun tf2_ros static_transform_publisher 0 0 0 0 0 0 1 ${FRAME_ID:-"robotA"} base_link"
+
+  # launch mocap forwarding
+  mocap:
+    image: osrf/ros:melodic-desktop
+    stdin_open: true
+    tty: true
+    network_mode: host
+    ipc: host
+    volumes:
+      - ./data:/data:ro
+    command: bash -c "
+      tar xf /data/mocap.tar
+      && source /work/devel/setup.bash
+      && roslaunch mocap_qualisys vision.launch"

@@ -1,0 +1,22 @@
+services:
+  dev:
+    extends:
+      file: docker-compose.yml
+      service: overlay
+    image: ugv_ctrl:dev
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      target: dev
+      args:
+        - UID=${UID:-1000}
+        - GID=${UID:-1000}
+        - USERNAME=${USERNAME:-devuser}
+    volumes:
+      - .devcontainer/dev.code-workspace:/dev.code-workspace:ro
+      - ./work:/work:rw
+      - ./data:/data:rw
+      - ./.devcontainer:/.devcontainer:rw
+    user: ${USERNAME:-devuser}
+    command: tail -f /dev/null
+ 

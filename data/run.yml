@@ -1,0 +1,14 @@
+target_publisher:
+  # 发布目标点的时间间隔
+  dt: 0.01
+  # 轨迹半径
+  radius: 1.0
+  # 期望线速度（角速度 = 线速度 / 半径）
+  linear_speed: 0.08
+  # 轨迹起点相对小车起点向左平移的偏移量
+  # 若小车在 [0, 0]，则轨迹起点 [0, offset]
+  offset: 0.5
+
+controller:
+  max_speed: 0.1
+  feedback_odom_topic: "/qualisys/robota/odom"

@@ -1,0 +1,350 @@
+{
+  "configById": {
+    "3D!3nd77o6": {
+      "cameraState": {
+        "perspective": true,
+        "distance": 4.7565377050930016,
+        "phi": 32.19833316039381,
+        "thetaOffset": -45.53613877546312,
+        "targetOffset": [
+          0.6532968610591956,
+          -0.037886021350661006,
+          -3.4921755752872664e-17
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "followTf": "odom",
+      "scene": {},
+      "transforms": {
+        "frame:dummy": {
+          "visible": false
+        },
+        "frame:camera_link": {
+          "visible": false
+        },
+        "frame:camera_frame_optical": {
+          "visible": false
+        },
+        "frame:laser_link": {
+          "visible": false
+        },
+        "frame:left_front_wheel_link": {
+          "visible": false
+        },
+        "frame:left_rear_wheel_link": {
+          "visible": false
+        },
+        "frame:right_front_wheel_link": {
+          "visible": false
+        },
+        "frame:right_rear_wheel_link": {
+          "visible": false
+        },
+        "frame:base_link": {
+          "visible": true
+        },
+        "frame:world": {
+          "visible": false
+        },
+        "frame:mocap": {
+          "visible": false
+        },
+        "frame:robotA": {
+          "visible": false
+        },
+        "frame:robota": {
+          "visible": false
+        },
+        "frame:hexa": {
+          "visible": false
+        },
+        "frame:odom": {
+          "visible": true
+        }
+      },
+      "topics": {
+        "/robot_description": {
+          "visible": true
+        },
+        "/initialpose": {
+          "visible": false,
+          "type": "arrow",
+          "arrowScale": [
+            -1.944,
+            0.15,
+            0.15
+          ]
+        },
+        "/car_pose": {
+          "visible": true,
+          "axisScale": 0.649
+        },
+        "/car_target_pose": {
+          "visible": true,
+          "type": "axis"
+        },
+        "/move_base_simple/goal": {
+          "visible": false
+        },
+        "/ref_path": {
+          "visible": true,
+          "lineWidth": 0.0328,
+          "gradient": [
+            "#6bff73ff",
+            "#24ff0080"
+          ],
+          "type": "line"
+        },
+        "/out/path/real": {
+          "visible": true,
+          "lineWidth": 0.0332,
+          "gradient": [
+            "#ff0009ff",
+            "#ff6b6b80"
+          ]
+        }
+      },
+      "layers": {
+        "grid": {
+          "visible": true,
+          "frameLocked": true,
+          "label": "Grid",
+          "instanceId": "aa70a412-cee0-4592-bbe4-cd1dede416bc",
+          "layerId": "foxglove.Grid",
+          "frameId": "odom",
+          "size": 10,
+          "lineWidth": 1,
+          "color": "#248eff",
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "divisions": 20
+        },
+        "775743a1-f68e-4620-a268-443d78d326ad": {
+          "visible": true,
+          "frameLocked": true,
+          "label": "URDF",
+          "instanceId": "775743a1-f68e-4620-a268-443d78d326ad",
+          "layerId": "foxglove.Urdf",
+          "sourceType": "filePath",
+          "url": "",
+          "filePath": "C:\\Users\\regis\\Documents\\workspace\\ugv_ws\\src\\ugv_descriptions\\models\\mini_4wd\\urdf\\all.xacro",
+          "parameter": "",
+          "topic": "",
+          "framePrefix": "",
+          "displayMode": "auto",
+          "fallbackColor": "#ffffff",
+          "order": 1
+        }
+      },
+      "publish": {
+        "type": "pose",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {}
+    },
+    "Plot!1jfd62a": {
+      "paths": [
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/debug.data[3]",
+          "enabled": true,
+          "color": "#4e98e2",
+          "label": "vx-est"
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/mini4wd/gz/odom.twist.twist.linear.x",
+          "enabled": true,
+          "color": "#f5774d",
+          "label": "vx-odom"
+        }
+      ],
+      "showXAxisLabels": true,
+      "showYAxisLabels": true,
+      "showLegend": true,
+      "legendDisplay": "floating",
+      "showPlotValuesInLegend": false,
+      "isSynced": true,
+      "xAxisVal": "timestamp",
+      "sidebarDimension": 240
+    },
+    "Plot!11o9535": {
+      "paths": [
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/debug.data[4]",
+          "enabled": true,
+          "color": "#4e98e2",
+          "label": "vy-est"
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/mini4wd/gz/odom.twist.twist.linear.y",
+          "enabled": true,
+          "color": "#f5774d",
+          "label": "vy-odom"
+        }
+      ],
+      "showXAxisLabels": true,
+      "showYAxisLabels": true,
+      "showLegend": true,
+      "legendDisplay": "floating",
+      "showPlotValuesInLegend": false,
+      "isSynced": true,
+      "xAxisVal": "timestamp",
+      "sidebarDimension": 240
+    },
+    "Plot!3fzeai6": {
+      "paths": [
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/debug.data[5]",
+          "enabled": true,
+          "color": "#4e98e2",
+          "label": "va-est"
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/mini4wd/gz/odom.twist.twist.angular.z",
+          "enabled": true,
+          "color": "#f5774d",
+          "label": "va-odom"
+        }
+      ],
+      "showXAxisLabels": true,
+      "showYAxisLabels": true,
+      "showLegend": true,
+      "legendDisplay": "floating",
+      "showPlotValuesInLegend": false,
+      "isSynced": true,
+      "xAxisVal": "timestamp",
+      "sidebarDimension": 240
+    },
+    "Plot!1n0jbl7": {
+      "paths": [
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/car_target.pose.pose.position.y",
+          "enabled": true,
+          "color": "#4e98e2"
+        }
+      ],
+      "minYValue": -0.5,
+      "maxYValue": 2.5,
+      "showXAxisLabels": true,
+      "showYAxisLabels": true,
+      "showLegend": true,
+      "legendDisplay": "floating",
+      "showPlotValuesInLegend": false,
+      "isSynced": true,
+      "xAxisVal": "custom",
+      "sidebarDimension": 240,
+      "xAxisPath": {
+        "value": "/car_target.pose.pose.position.x"
+      },
+      "followingViewWidth": 2
+    },
+    "Tab!4ifwl5v": {
+      "activeTabIdx": 0,
+      "tabs": [
+        {
+          "title": "",
+          "layout": "3D!3nd77o6"
+        },
+        {
+          "title": "",
+          "layout": {
+            "first": "Plot!1jfd62a",
+            "second": {
+              "first": "Plot!11o9535",
+              "second": "Plot!3fzeai6",
+              "direction": "column"
+            },
+            "direction": "column",
+            "splitPercentage": 37.67660910518053
+          }
+        },
+        {
+          "title": "",
+          "layout": "Plot!1n0jbl7"
+        }
+      ]
+    },
+    "SourceInfo!du4pfr": {},
+    "RawMessages!25j7d4f": {
+      "diffEnabled": false,
+      "diffMethod": "custom",
+      "diffTopicPath": "",
+      "showFullMessageForDiff": false,
+      "topicPath": "/qualisys/robotA/odom.pose.pose",
+      "fontSize": 12
+    },
+    "RawMessages!26qbxtu": {
+      "diffEnabled": false,
+      "diffMethod": "custom",
+      "diffTopicPath": "",
+      "showFullMessageForDiff": false,
+      "topicPath": "/qualisys/robotA/odom.twist.twist",
+      "fontSize": 12
+    },
+    "RawMessages!2e129tw": {
+      "diffEnabled": false,
+      "diffMethod": "custom",
+      "diffTopicPath": "",
+      "showFullMessageForDiff": false,
+      "topicPath": "/cmd_vel",
+      "fontSize": 12
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "playbackConfig": {
+    "speed": 1
+  },
+  "layout": {
+    "direction": "row",
+    "first": "Tab!4ifwl5v",
+    "second": {
+      "first": "SourceInfo!du4pfr",
+      "second": {
+        "first": {
+          "first": "RawMessages!25j7d4f",
+          "second": "RawMessages!26qbxtu",
+          "direction": "row"
+        },
+        "second": "RawMessages!2e129tw",
+        "direction": "column"
+      },
+      "direction": "column",
+      "splitPercentage": 50.20242914979757
+    },
+    "splitPercentage": 63.46153846153846
+  }
+}

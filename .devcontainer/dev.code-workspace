@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "/data"
+		},
+		{
+			"path": "/work"
+		},
+		{
+			"path": "/.devcontainer"
+		}
+	],
+	"settings": {
+		"python.envFile": "/work/.env",
+		"python.defaultInterpreterPath": "/conda/envs/ros/bin/python"
+	}
+}
