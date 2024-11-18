@@ -90,12 +90,15 @@ services:
   # launch tf2 static transform & foxglove bridge
   backend:
     extends: overlay
+    environment:
+      - FRAME_ID=${FRAME_ID:-"robotA"}
     # 如果要使用 $ 符号，需要使用 $$ 转义
     # 需要放在后台运行的例子可以使用 () 符号，它表示在子 shell 中运行命令
     command: bash -c "
       source /opt/ros/noetic/setup.bash
       && echo ROS_IP = $$ROS_IP
       && echo listening on $$ROS_MASTER_URI
+      && echo handle transform in mocap of $$FRAME_ID
       && (roslaunch foxglove_bridge foxglove_bridge.launch > /dev/null &)
       && sleep 2
       && (rosrun tf2_ros static_transform_publisher 0 0 0 0 0 0 1 mocap odom &)
