@@ -30,7 +30,7 @@ ROS_IP=MY_IP docker compose create
 推荐在 vscode 的集成终端中执行，因为后端服务集成了 foxglove 方便[可视化](#可视化)
 
 ```shell
-FRAME_ID="动捕系统中小车的名字（默认 robotA）" docker compose up backend
+ROS_IP=MY_IP FRAME_ID="动捕系统中小车的名字（默认 robotA）" docker compose up backend
 ```
 
 
@@ -39,7 +39,7 @@ FRAME_ID="动捕系统中小车的名字（默认 robotA）" docker compose up b
 要成功转发动捕系统数据必须保证电脑已经接入局域网，能与动捕系统正常通信才行
 
 ```shell
-docker compose up mocap
+ROS_IP=MY_IP docker compose up mocap
 ``` 
 
 
@@ -60,17 +60,17 @@ docker compose up mocap
   - **！！！进行上述修改时不要修改文件名！！！**
   - 使用下面指令开始追踪
     ```shell
-    docker compose up run
+    ROS_IP=MY_IP docker compose up run
     ```
   - 使用 `ctrl-c` 停止追踪，接着使用以下指令停止小车运动
     ```shell
-    docker compose up stop
+    ROS_IP=MY_IP docker compose up stop
     ```
   - 记录下来的数据在 `data/` 文件夹中
 
 
-- shell [A B C] 只需要实验开始时启动一次，不需要重复启动
-- shell D 需要在每次更新参数后重新启动
+- shell [A B C] 中的指令只需要实验开始时启动一次，不需要重复启动
+- shell D 中的指令需要在每次更新参数后重新启动
 
 ## 可视化
 
