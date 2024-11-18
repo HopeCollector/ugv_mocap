@@ -94,6 +94,7 @@ services:
     # 需要放在后台运行的例子可以使用 () 符号，它表示在子 shell 中运行命令
     command: bash -c "
       source /opt/ros/noetic/setup.bash
+      && echo ROS_IP = $$ROS_IP
       && echo listening on $$ROS_MASTER_URI
       && (roslaunch foxglove_bridge foxglove_bridge.launch > /dev/null &)
       && sleep 2
